@@ -11,21 +11,22 @@ def login(request):
         err_data = {}
         if not(user_email and user_password):
             err_data['error'] = '모든 값을 입력해 주세요.'
-            return render(request,'login.html',{'err_data':err_data})
+            return render(request,'login.html',err_data)
         else:
-            user = User.objects.get(user_email=user_email)
-            if user!=None:
+            try:
+                user = User.objects.get(user_email=user_email)
+            except:
+                err_data['nouser'] = '존재하지 않는 사용자입니다.'
+                return render(request,'login.html',err_data)
+            else:
                 if check_password(user_password, user.user_password):
                     request.session['user'] = user.user_id
                 else:
-                    err_data['error'] = '비밀번호가 일치하지 않습니다.'
-                    return render(request,'login.html',{'err_data':err_data})
-            else:
-                err_data['nouser'] = '존재하지 않는 사용자입니다.'
-                return render(request,'login.html',{'err_data':err_data})
+                    err_data['password'] = '비밀번호가 일치하지 않습니다.'
+                    return render(request,'login.html',err_data)
             return redirect("home")
         
-
+#중복인지 아닌지 체크하기
 def signup(request):
     if request.method=="GET":
         return render(request,'signup.html')
@@ -39,11 +40,21 @@ def signup(request):
         new_user.user_email = request.POST['user_email']
         new_user.user_repassword = request.POST['user_repassword']
         if new_user.user_password!=new_user.user_repassword:
-            return redirect('user:signup')
+            err_msg['password'] = "비밀번호가 일치하지 않습니다."
+            return render(request,'signup.html',err_msg)
         new_user.user_password = make_password(request.POST['user_password'])
         new_user.user_repassword = make_password(request.POST['user_repassword'])
         new_user.save()
-    return render(request,'signup.html',{'err_msg':err_msg})
+    return redirect("home")
+
+def logout(request):
+    if request.session.get('user'):
+        del(request.session['user'])
+        return redirect("home")
+    
+
+
+    
         
     
 

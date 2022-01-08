@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content%}
-{% for error in err_data%}
+<div class="info" style="padding:30px; color:red;">
+{{error}}
+{{password}}
+{{nouser}}
+</div>
+<div>
 
-{% endfor %}
 <form action="{% url 'user:login' %}" method="POST">
     {% csrf_token %}
   
@@ -10,4 +14,5 @@
     <p>비밀번호 : <input type="text" name="user_password"></p>
     <button type="submit">로그인</button>
     </form>
+</div>
 {% endblock %}
