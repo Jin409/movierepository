@@ -1,2 +1,13 @@
 {% extends 'base.html' %}
+{% block content%}
+{% for error in err_data%}
 
+{% endfor %}
+<form action="{% url 'user:login' %}" method="POST">
+    {% csrf_token %}
+  
+    <p>이메일(로그인 시 이메일을 사용합니다.) : <input type="text" name="user_email"></p>
+    <p>비밀번호 : <input type="text" name="user_password"></p>
+    <button type="submit">로그인</button>
+    </form>
+{% endblock %}
