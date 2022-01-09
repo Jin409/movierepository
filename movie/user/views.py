@@ -20,13 +20,28 @@ def login(request):
                 return render(request,'login.html',err_data)
             else:
                 if check_password(user_password, user.user_password):
-                    request.session['user'] = user.user_id
+                    request.session['user'] = user.id
                 else:
                     err_data['password'] = '비밀번호가 일치하지 않습니다.'
                     return render(request,'login.html',err_data)
             return redirect("home")
         
-#중복인지 아닌지 체크하기
+def email_checker(user_email):
+    try:
+        user = User.objects.get(user_email = user_email)
+    except:
+        return True
+    return False
+
+def nickid_checker(user_nickid):
+    try:
+        user = User.objects.get(user_nickid = user_nickid)
+    except:
+        return True
+    return False
+
+        
+
 def signup(request):
     if request.method=="GET":
         return render(request,'signup.html')
@@ -34,10 +49,18 @@ def signup(request):
     else:
         err_msg = {}
         new_user = User()
-        new_user.user_id = request.POST['user_id']
+        new_user.user_nickid = request.POST['user_nickid']
+        duplicate = nickid_checker(new_user.user_nickid)
+        if duplicate==False:
+            err_msg['duplicate_nickid'] = "이미 존재하는 아이디입니다."
+            return render(request,'signup.html',err_msg)
         new_user.user_nickname = request.POST['user_nickname']
         new_user.user_password = request.POST['user_password']
         new_user.user_email = request.POST['user_email']
+        duplicate = email_checker(new_user.user_email)
+        if duplicate==False:
+            err_msg['duplicate_email'] = "이미 존재하는 이메일입니다."
+            return render(request,'signup.html',err_msg)
         new_user.user_repassword = request.POST['user_repassword']
         if new_user.user_password!=new_user.user_repassword:
             err_msg['password'] = "비밀번호가 일치하지 않습니다."
@@ -52,6 +75,8 @@ def logout(request):
         del(request.session['user'])
         return redirect("home")
     
+
+
 
 
     
