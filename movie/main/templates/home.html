@@ -2,16 +2,17 @@
 {% block content%}
 <div style="padding:30px;">
 {{welcome}}
+{{please}}
 </div>
 
-    {% if user_id %}
+    {% if welcome %}
     <button ><a style="text-decoration-line:none;"href="{% url 'user:logout' %}"> 로그아웃</a></button>
     {% endif %}
-    {% if not user_id %}
+    {% if not welcome %}
     <button ><a style="text-decoration-line:none;"href="{% url 'user:login' %}"> 로그인</a></button>
     <button ><a style="text-decoration-line:none;"href="{% url 'user:signup' %}"> 회원가입하기</a></button>
     {% endif %}
-
+<a href="{% url 'main:detail'%}">hey</a>
 
 {% endblock %}
 
