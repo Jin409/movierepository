@@ -5,6 +5,6 @@ app_name='main'
 
 urlpatterns=[
 
-path('detail',detail,name="detail"),
+path('<int:id>',detail,name="detail"),
     
 ]

@@ -12,7 +12,8 @@
     <button ><a style="text-decoration-line:none;"href="{% url 'user:login' %}"> 로그인</a></button>
     <button ><a style="text-decoration-line:none;"href="{% url 'user:signup' %}"> 회원가입하기</a></button>
     {% endif %}
-<a href="{% url 'main:detail'%}">hey</a>
+
+<a href="{% url 'main:detail' user.id %}">hey</a>
 
 {% endblock %}
 
