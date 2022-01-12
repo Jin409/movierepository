@@ -16,7 +16,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="{% url 'home' %}">home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,7 +26,7 @@
               {% comment %} 로그인 / 로그아웃 / 회원가입버튼 {% endcomment %}
               {% if welcome %}
               <a class="nav-link active" aria-current="page" href="{% url 'user:logout' %}">로그아웃</a>
-              {{welcome}}
+              <p>{{user.user_nickname}}님 안녕하세요!</p>
     {% endif %}
     {% if not welcome %}
     {{please}}

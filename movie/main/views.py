@@ -5,29 +5,32 @@ from django.http import HttpResponse
 # Create your views here.
 def home(request):
     user_id = request.session.get('user')
-
-    info_msg = {}
-
+    users = User.objects.all()
     if user_id:
         user = User.objects.get(pk = user_id)
-        info_msg['welcome'] = "%s님 환영합니다!"%user.user_nickname
         
+        welcome=True
+        return render(request,'home.html',context = {'welcome':welcome,'user':user,'users':users})
     else:
-        info_msg['please'] = "로그인을 해주세요!"
-    return render(request,'home.html',info_msg,user)
+        welcome=False
+        return render(request,'home.html',{'welcome':welcome,'users':users})
+    
 
 
         
 
 def detail(request,id):
-    page = get_object_or_404(User,pk=id)
+    user_detail = get_object_or_404(User,pk=id)
     user_id = request.session.get('user')
     info_msg = {}
     if user_id:
         user = User.objects.get(pk = user_id)
-        info_msg['welcome'] = "%s님 환영합니다!"%user.user_nickname
+        welcome = True
+        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome,"user":user})
     else:
-        info_msg['please'] = "로그인을 해주세요!"
+        welcome = False
+        
+        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome})
     
-
-    return render(request,'detail.html',info_msg)
+def update(request):
+    return render(request,'update.html')

@@ -1,19 +1,28 @@
 {% extends 'base.html' %}
 {% block content%}
-<div style="padding:30px;">
-{{welcome}}
-{{please}}
-</div>
 
-    {% if welcome %}
+
+<div style="padding:30px;">
+    <p>#테스트용 버튼들</p>
+    {% if welcome is True %}
     <button ><a style="text-decoration-line:none;"href="{% url 'user:logout' %}"> 로그아웃</a></button>
+    <a href="{% url 'main:detail' user.id %}">hey</a>
+    {{user.user_nickname}}님 안녕하세요!
     {% endif %}
-    {% if not welcome %}
+    {% if welcome is False %}
     <button ><a style="text-decoration-line:none;"href="{% url 'user:login' %}"> 로그인</a></button>
     <button ><a style="text-decoration-line:none;"href="{% url 'user:signup' %}"> 회원가입하기</a></button>
-    {% endif %}
+    {% endif %} 
+</div>
 
-<a href="{% url 'main:detail' user.id %}">hey</a>
+
+    {% for user in users %}
+    <div style="padding:30px;">
+   <a href="{% url 'main:detail' user.id%}"> {{user.user_nickname}} </a>
+{{user.user_nickid}}
+
+    </div>
+    {% endfor %}
 
 {% endblock %}
 
