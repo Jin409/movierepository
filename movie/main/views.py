@@ -1,4 +1,5 @@
 from django.shortcuts import render,get_object_or_404
+from django.contrib.auth.hashers import make_password, check_password
 from user.models import *
 from django.http import HttpResponse
 
@@ -32,5 +33,38 @@ def detail(request,id):
         
         return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome})
     
-def update(request):
-    return render(request,'update.html')
+def profile_update(request,id):
+    profile_user = User.objects.get(id=id)
+    if request.method=="POST":
+        profile_user.user_nickid = request.POST['user_nickid']
+        profile_user.user_nickname = request.POST['user_nickname']
+        profile_user.user_password = make_password(request.POST['user_password'])
+        profile_user.save()
+        user_id = request.session.get('user')
+        if user_id:
+            user = User.objects.get(pk = user_id)
+            welcome=True
+            return render(request,'profile_update.html',context = {'welcome':welcome,'user':user,'profile_user':profile_user})
+        else:
+            welcome=False
+            return render(request,'profile_update.html',{'welcome':welcome})
+    else:
+        user_id = request.session.get('user')
+        if user_id:
+            user = User.objects.get(pk = user_id)
+            welcome=True
+            return redirect(request,'profile_update.html',context = {'welcome':welcome,'user':user,'profile_user':profile_user})
+        else:
+            welcome=False
+            return render(request,'profile_update.html',{'welcome':welcome})
+    
+##복붙
+# user_id = request.session.get('user')
+#     if user_id:
+#         user = User.objects.get(pk = user_id)
+        
+#         welcome=True
+#         return render(request,'home.html',context = {'welcome':welcome,'user':user,'users':users})
+#     else:
+#         welcome=False
+#         return render(request,'home.html',{'welcome':welcome,'users':users})

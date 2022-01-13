@@ -1,6 +1,7 @@
 {%extends 'base.html' %}
 {% block content%}
 {% if user_detail.id == user.id %}
-<a href="{% url 'main:update' %}">수정하기</a>
+<a href="{% url 'main:profile_update' user.id%}">프로필 수정하기</a>
 {% endif %}
+
 {% endblock %}

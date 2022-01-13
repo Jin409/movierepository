@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+{%block content%}
+<p>이메일은 바꾸실 수 없습니다.</p> 
+<form action="{% url 'main:profile_update' user.id%}" method="POST">
+    {%csrf_token%}
+    <input type="text" name="user_nickid" value={{user.user_nickid}}>
+    <input type="text" name="user_nickname" value="{{user.user_nickname}}">
+    <input type="text" name="user_password">
+    <button type="submit">저장하기</button>
+</form>
+
+{%endblock%}

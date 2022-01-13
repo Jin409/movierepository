@@ -6,6 +6,7 @@ app_name='main'
 urlpatterns=[
 
 path('<int:id>',detail,name="detail"),
-path('update',update,name="update"),
+path('profile_update/<int:id>',profile_update,name="profile_update"),
+
     
 ]
