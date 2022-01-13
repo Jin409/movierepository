@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 from user.models import *
 from django.http import HttpResponse
@@ -40,20 +40,13 @@ def profile_update(request,id):
         profile_user.user_nickname = request.POST['user_nickname']
         profile_user.user_password = make_password(request.POST['user_password'])
         profile_user.save()
-        user_id = request.session.get('user')
-        if user_id:
-            user = User.objects.get(pk = user_id)
-            welcome=True
-            return render(request,'profile_update.html',context = {'welcome':welcome,'user':user,'profile_user':profile_user})
-        else:
-            welcome=False
-            return render(request,'profile_update.html',{'welcome':welcome})
+        return redirect('home')
     else:
         user_id = request.session.get('user')
         if user_id:
             user = User.objects.get(pk = user_id)
             welcome=True
-            return redirect(request,'profile_update.html',context = {'welcome':welcome,'user':user,'profile_user':profile_user})
+            return render(request,'profile_update.html',context = {'welcome':welcome,'user':user,'profile_user':profile_user})
         else:
             welcome=False
             return render(request,'profile_update.html',{'welcome':welcome})
@@ -68,3 +61,11 @@ def profile_update(request,id):
 #     else:
 #         welcome=False
 #         return render(request,'home.html',{'welcome':welcome,'users':users})
+
+def profile_delete(request,id):
+    profile_user = User.objects.get(id=id)
+    profile_user.delete()
+    if request.session.get('user'):
+        del(request.session['user'])
+    return redirect("home")
+    

@@ -5,7 +5,8 @@
     {%csrf_token%}
     <input type="text" name="user_nickid" value={{user.user_nickid}}>
     <input type="text" name="user_nickname" value="{{user.user_nickname}}">
-    <input type="text" name="user_password">
+    <p>비밀번호를 바꾸지 않으시더라도 반드시 입력해주세요</p>
+    <input type="password" name="user_password" value="{{user.user_password}}">
     <button type="submit">저장하기</button>
 </form>
 
