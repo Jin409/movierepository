@@ -70,6 +70,7 @@ def signup(request):
         new_user.user_password = make_password(request.POST['user_password'])
         new_user.user_repassword = make_password(request.POST['user_repassword'])
         new_user.save()
+    request.session['user'] = new_user.id
     return redirect("home")
 
 def logout(request):

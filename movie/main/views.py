@@ -11,14 +11,11 @@ def home(request):
     
     if user_id:
         user = User.objects.get(pk = user_id)
-        
         welcome=True
         return render(request,'home.html',context = {'welcome':welcome,'user':user,'users':users})
     else:
         welcome=False
         return render(request,'home.html',{'welcome':welcome,'users':users})
-
-    
 
 
 def detail(request,id):
@@ -68,6 +65,5 @@ def profile_delete(request,id):
         del(request.session['user'])
     profile_user = User.objects.get(id=id)
     profile_user.delete()
-    
     return redirect("home")
     
