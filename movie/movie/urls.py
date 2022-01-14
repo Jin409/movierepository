@@ -23,5 +23,6 @@ urlpatterns = [
     path('',home,name="home"),
     path('main/',include('main.urls')),
     path('user/',include('user.urls')),
+    path('post/',include('post.urls')),
     
 ]

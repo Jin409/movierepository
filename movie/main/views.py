@@ -7,6 +7,7 @@ from django.http import HttpResponse
 def home(request):
     user_id = request.session.get('user')
     users = User.objects.all()
+    
     if user_id:
         user = User.objects.get(pk = user_id)
         
@@ -15,10 +16,9 @@ def home(request):
     else:
         welcome=False
         return render(request,'home.html',{'welcome':welcome,'users':users})
+
     
 
-
-        
 
 def detail(request,id):
     user_detail = get_object_or_404(User,pk=id)
@@ -63,9 +63,10 @@ def profile_update(request,id):
 #         return render(request,'home.html',{'welcome':welcome,'users':users})
 
 def profile_delete(request,id):
-    profile_user = User.objects.get(id=id)
-    profile_user.delete()
     if request.session.get('user'):
         del(request.session['user'])
+    profile_user = User.objects.get(id=id)
+    profile_user.delete()
+    
     return redirect("home")
     
