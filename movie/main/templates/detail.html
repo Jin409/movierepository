@@ -4,6 +4,11 @@
 <a href="{% url 'main:profile_update' user.id%}">프로필 수정하기</a>
 <a href="{% url 'main:profile_delete' user.id %}">탈퇴하기</a>
 <p style="color:red;">탈퇴한 이후에는 되돌리실 수 없으니 신중히 선택하여 주시기 바랍니다.</p>
+<a href="{% url 'post:new'  %}">글 등록하기</a>
+
 {% endif %}
+{% for post in posts %}
+{{post.title}}
+{% endfor %}
 
 {% endblock %}

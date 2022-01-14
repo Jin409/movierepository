@@ -6,6 +6,7 @@ from .views import *
 app_name='post'
 
 urlpatterns = [
-    path('',new,name="new"),
+    path('new',new,name="new"),
+    path('detail/<int:id>',detail,name="detail"),
     
 ]

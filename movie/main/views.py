@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 from user.models import *
 from django.http import HttpResponse
+from post.models import Post
 
 # Create your views here.
 def home(request):
@@ -22,16 +23,16 @@ def home(request):
 
 def detail(request,id):
     user_detail = get_object_or_404(User,pk=id)
+    posts = Post.objects.filter(user = user_detail)
     user_id = request.session.get('user')
     info_msg = {}
     if user_id:
         user = User.objects.get(pk = user_id)
         welcome = True
-        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome,"user":user})
+        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome,"user":user,'posts':posts})
     else:
         welcome = False
-        
-        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome})
+        return render(request,'detail.html',{"user_detail":user_detail,'welcome':welcome,'posts':posts})
     
 def profile_update(request,id):
     profile_user = User.objects.get(id=id)

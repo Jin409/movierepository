@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content%}
+<form method="POST" action="{% url 'post:new' %}">
+    {% csrf_token %}
+    <input type="text" name="title">
+    <input type="textarea" rows="4" cols="50" name="body">
+    <select name="score">
+        <option value="one">&#11088</option>
+        <option value="two">&#11088&#11088</option>
+        <option value="three">&#11088&#11088&#11088</option>
+        <option value="four">&#11088&#11088&#11088&#11088</option>
+        <option value="five">&#11088&#11088&#11088&#11088&#11088</option>
+
+    </select>
+    <button type="submit">저장하기</button>
+</form>
+{% endblock %}
+
