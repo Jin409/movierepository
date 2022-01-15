@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+{{post_detail.title}}
+{{post_detail.body}}
+<img src="{{post_detail.get_image_url}}"></a>
+{% if welcome and post_detail.user == user %}
+<a href="{% url 'post:post_delete' post_detail.id%}">삭제하기</a>
+{% endif %}
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import User
+from movie import settings
 
 # Create your models here.
 
@@ -18,3 +19,11 @@ class Post(models.Model):
     pub_date = models.DateTimeField()
     body = models.TextField()
     score = models.CharField(null=False,max_length=30,choices=STAR_CHOICES)
+    image = models.ImageField(upload_to="post/",null=True, blank=True)
+    def get_image_url(self):
+        return '%s%s' %(settings.MEDIA_URL, self.image)
+
+
+
+    
+
