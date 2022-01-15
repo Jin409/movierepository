@@ -16,22 +16,38 @@
 </div>
 
 
-    {% for user in users %}
+{% for user in users%}
+<div style="padding:30px; margin:20px; border:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
+    {{user.user_nickid}}
+    {{user.user_nickname}}
+    <div class="poster" style="display:flex; flex-direction:column; margin:10px;">
+        {% for post in posts%}
+        {% if user.id is post.user.id%}
+        <a href="{% url 'post:post_detail' post.id %}"><img src="{{post.image.url}}" style="height:100px;width:60px;"></a>
+        <p style="font-size:10px; margin:10px;">{{post.score}}</p>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+
+{% comment %} {% for user in users %}
 
     <div style="padding:30px; margin:20px; border:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
-   {{user.user_nickname}}
+      
+
+        {{user.user_nickname}}
 {{user.user_nickid}}
-<div class="poster">
+    <div class="poster">
 {% for post in posts%}
 {% if user.id is post.user.id%}
 <a href="{% url 'post:post_detail' post.id %}"><img src="{{post.image.url}}" style="height:100px;width:60px;"></a>
+{{post.score}}
 {% endif %}
-</div>
-
-{% endfor %}
-    
     </div>
-    {% endfor %}
+{% endfor %}
+</div>
+{% endfor %} {% endcomment %}
 
     
     
