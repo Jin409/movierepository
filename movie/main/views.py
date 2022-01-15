@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from django.contrib.auth.hashers import make_password, check_password
 from user.models import *
-from django.http import HttpResponse
 from post.models import Post
 
 # Create your views here.

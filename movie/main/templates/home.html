@@ -18,13 +18,22 @@
 
     {% for user in users %}
 
-    <div style="padding:30px; margin:20px; border:1px solid; " class="except">
-   <a href="{% url 'main:detail' user.id%}"> {{user.user_nickname}} </a>
+    <div style="padding:30px; margin:20px; border:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
+   {{user.user_nickname}}
 {{user.user_nickid}}
+<div class="poster">
+{% for post in posts%}
+{% if user.id is post.user.id%}
+<a href="{% url 'post:post_detail' post.id %}"><img src="{{post.image.url}}" style="height:100px;width:60px;"></a>
+{% endif %}
+</div>
 
+{% endfor %}
+    
     </div>
     {% endfor %}
 
+    
     
 {% endblock %}
 
