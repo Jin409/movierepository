@@ -17,12 +17,14 @@
 
 
     {% for user in users %}
-    <div style="padding:30px;">
+
+    <div style="padding:30px; margin:20px; border:1px solid; " class="except">
    <a href="{% url 'main:detail' user.id%}"> {{user.user_nickname}} </a>
 {{user.user_nickid}}
 
     </div>
     {% endfor %}
 
+    
 {% endblock %}
 

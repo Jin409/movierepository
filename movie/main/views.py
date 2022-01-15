@@ -8,14 +8,14 @@ from post.models import Post
 def home(request):
     user_id = request.session.get('user')
     users = User.objects.all()
-    
+    posts = Post.objects.all()
     if user_id:
         user = User.objects.get(pk = user_id)
         welcome=True
-        return render(request,'home.html',context = {'welcome':welcome,'user':user,'users':users})
+        return render(request,'home.html',context = {'welcome':welcome,'user':user,'users':users,'posts':posts})
     else:
         welcome=False
-        return render(request,'home.html',{'welcome':welcome,'users':users})
+        return render(request,'home.html',{'welcome':welcome,'users':users,'posts':posts})
 
 
 def detail(request,id):

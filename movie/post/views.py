@@ -35,8 +35,7 @@ def post_detail(request,id):
         return render(request,'post_detail.html',{"post_detail":post_detail,'welcome':welcome})
 
     
-
 def post_delete(request,id):
-    post = User.objects.get(id=id)
+    post = Post.objects.get(id=id)
     post.delete()
     return redirect("home")
