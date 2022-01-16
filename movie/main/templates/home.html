@@ -20,11 +20,13 @@
 <div style="padding:30px; margin:20px; border:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
     {{user.user_nickid}}
     {{user.user_nickname}}
-    <div class="poster" style="display:flex; flex-direction:column; margin:10px;">
+    <div class="poster" style="display:flex; flex-direction:row; margin:10px;">
         {% for post in posts%}
         {% if user.id is post.user.id%}
+        <div style="display:flex; flex-direction:column;">
         <a href="{% url 'post:post_detail' post.id %}"><img src="{{post.image.url}}" style="height:100px;width:60px;"></a>
         <p style="font-size:10px; margin:10px;">{{post.score}}</p>
+        </div>
         {% endif %}
         {% endfor %}
     </div>
