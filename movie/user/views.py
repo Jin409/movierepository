@@ -53,6 +53,8 @@ def signup(request):
         new_user.user_password = request.POST['user_password']
         new_user.user_email = request.POST['user_email']
         new_user.user_repassword = request.POST['user_repassword']
+        new_user.user_introduce = request.POST['introduce']
+        new_user.user_image = request.FILES['image']
         if new_user.user_email =='' or new_user.user_nickid=='' or new_user.user_nickname=='' or new_user.user_password=='' or new_user.user_repassword=='':
             err_msg['blank'] = "모든 값을 입력해주세요. 빈칸이 존재합니다."
             return render(request,'signup.html',err_msg)

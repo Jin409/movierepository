@@ -1,21 +1,26 @@
 {%extends 'base.html' %}
 {% load static %}
 {% block content%}
+
+
+{% for post in posts %}
+<div style="cursor:pointer; margin:10px;" onclick="location.href='{% url 'post:post_detail' post.id%}'">
+<p>{{post.title}} 
+{% comment %} <img style="height:160px; width:90px; "src="{{post.image.url}}"> {% endcomment %}
+ : {{post.summary}}</p>
+{{post.score}}
+
+
+
+</div>
+
+{% endfor %}
+<div style="text-align:center;position:fixed; bottom:0; padding:30px;left:50%;transform: translateX( -50% );">
 {% if user_detail.id == user.id %}
 <a href="{% url 'main:profile_update' user.id%}">프로필 수정하기</a>
 <a href="{% url 'main:profile_delete' user.id %}">탈퇴하기</a>
 <p style="color:red;">탈퇴한 이후에는 되돌리실 수 없으니 신중히 선택하여 주시기 바랍니다.</p>
 <a href="{% url 'post:new'  %}">글 등록하기</a>
-
 {% endif %}
-<div>
-{% for post in posts %}
-{{post.title}}
-<img src="{{post.image.url}}">
-{{post.score}}
-<a href="{% url 'post:post_detail' post.id %}">포스트</a>
 </div>
-
-{% endfor %}
-
 {% endblock %}

@@ -3,27 +3,26 @@
 
 
 <div style="padding:30px;">
-    <p>#테스트용 버튼들</p>
+    
     {% if welcome is True %}
-    <button ><a style="text-decoration-line:none;"href="{% url 'user:logout' %}"> 로그아웃</a></button>
-    <a href="{% url 'main:detail' user.id %}">hey</a>
-    {{user.user_nickname}}님 안녕하세요!
+    
+
     {% endif %}
     {% if welcome is False %}
-    <button ><a style="text-decoration-line:none;"href="{% url 'user:login' %}"> 로그인</a></button>
-    <button ><a style="text-decoration-line:none;"href="{% url 'user:signup' %}"> 회원가입하기</a></button>
+    {% comment %} <button ><a style="text-decoration-line:none;"href="{% url 'user:login' %}"> 로그인</a></button>
+    <button ><a style="text-decoration-line:none;"href="{% url 'user:signup' %}"> 회원가입하기</a></button> {% endcomment %}
     {% endif %} 
 </div>
 
 
 {% for user in users%}
-<div style="padding:30px; margin:20px; border:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
+<div style="padding:30px; margin:20px; border-bottom:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
     {{user.user_nickid}}
     {{user.user_nickname}}
     <div class="poster" style="display:flex; flex-direction:row; margin:10px;">
         {% for post in posts%}
         {% if user.id is post.user.id%}
-        <div style="display:flex; flex-direction:column;">
+        <div style="display:flex; flex-direction:column; margin:10px;">
         <a href="{% url 'post:post_detail' post.id %}"><img src="{{post.image.url}}" style="height:100px;width:60px;"></a>
         <p style="font-size:10px; margin:10px;">{{post.score}}</p>
         </div>

@@ -4,7 +4,7 @@
 {{post_detail.body}}
 </div>
 <div style="padding:30px;">
-<img src="{{post_detail.image.url}}">
+<img style="height:320px; width:200px;" src="{{post_detail.image.url}}">
 </div>
 {% if welcome and post_detail.user == user %}
 <a href="{% url 'post:post_delete' post_detail.id%}">삭제하기</a>

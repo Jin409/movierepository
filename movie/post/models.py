@@ -20,6 +20,8 @@ class Post(models.Model):
     body = models.TextField()
     score = models.CharField(null=False,max_length=1000,choices=STAR_CHOICES)
     image = models.ImageField(upload_to="post/",null=True, blank=True)
+    def summary(self):
+        return self.body[:10]
    
 
 
