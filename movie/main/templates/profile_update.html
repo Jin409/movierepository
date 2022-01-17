@@ -1,12 +1,14 @@
 {% extends 'base.html'%}
 {%block content%}
 <p>이메일은 바꾸실 수 없습니다.</p> 
-<form action="{% url 'main:profile_update' user.id%}" method="POST">
+<form action="{% url 'main:profile_update' user.id%}" method="POST" enctype="multipart/form-data">
     {%csrf_token%}
     <input type="text" name="user_nickid" value={{user.user_nickid}}>
     <input type="text" name="user_nickname" value="{{user.user_nickname}}">
     <p>비밀번호를 바꾸지 않으시더라도 반드시 입력해주세요</p>
     <input type="password" name="user_password" value="{{user.user_password}}">
+    <p>프로필 사진 *필수 입력사항은 아닙니다. <input type="file" name="image" value="{{user.user_image}}"></p>
+<p>짧게 자신을 소개해주세요! *필수 입력사항은 아닙니다. <textarea rows="4" cols="50" name="introduce" value="{{user.user_introduce}}"></textarea></p>
     <button type="submit">저장하기</button>
 </form>
 

@@ -17,7 +17,12 @@
 
 {% for user in users%}
 <div style="padding:30px; margin:20px; border-bottom:1px solid; cursor:pointer; " onclick="location.href='{% url 'main:detail' user.id%}'" class="except">
-    {{user.user_nickid}}
+   {% if user.user_image%}
+   <div class="img_box" style="width: 70px; height: 70px; border-radius: 70%; overflow: hidden;">
+   <img src="{{user.user_image.url}}" style="width: 100%;height: 100%; object-fit: cover;">
+   </div>
+   {% endif %} 
+   {{user.user_nickid}}
     {{user.user_nickname}}
     <div class="poster" style="display:flex; flex-direction:row; margin:10px;">
         {% for post in posts%}

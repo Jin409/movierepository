@@ -36,6 +36,9 @@ def profile_update(request,id):
         profile_user.user_nickid = request.POST['user_nickid']
         profile_user.user_nickname = request.POST['user_nickname']
         profile_user.user_password = make_password(request.POST['user_password'])
+        profile_user.user_image = request.FILES['image']
+        profile_user.user_introduce = request.POST['introduce']
+        
         profile_user.save()
         return redirect('home')
     else:

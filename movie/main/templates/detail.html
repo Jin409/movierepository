@@ -5,9 +5,11 @@
 
 {% for post in posts %}
 <div style="cursor:pointer; margin:10px;" onclick="location.href='{% url 'post:post_detail' post.id%}'">
-<p>{{post.title}} 
+<p>{{post.title}} :
 {% comment %} <img style="height:160px; width:90px; "src="{{post.image.url}}"> {% endcomment %}
- : {{post.summary}}</p>
+{% if post.body%}
+  {{post.summary}}... <a style="text-decoration:line;" href="{% url 'post:post_detail' post.id %}"></a></p>
+ {% endif %}
 {{post.score}}
 
 

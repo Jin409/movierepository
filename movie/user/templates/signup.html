@@ -10,7 +10,7 @@
     {{blank}}
     </div>
     <div>
-<form action="{% url 'user:signup' %}" method="POST">
+<form action="{% url 'user:signup' %}" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 <p>이메일(로그인 시 이메일을 사용합니다.) : <input type="text" name="user_email"></p>
 <p>아이디 : <input type="text" name="user_nickid"></p>
