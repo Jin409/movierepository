@@ -1,8 +1,33 @@
+
 {%extends 'base.html' %}
+{%load static%}
 {% load static %}
 {% block content%}
-
-
+<div class="info" style="text-align:left; ">
+  <p style=" font-weight:bold; font-size:18px; padding:4px;">{{user_detail.user_nickid}}</p>
+    {% if user_detail.user_image %}
+    <div class="img_box" style="width: 70px; height: 70px; border-radius: 70%; overflow: hidden;">
+    <img src="{{user_detail.user_image.url}}" style="width: 100%;height: 100%; object-fit: cover;">
+    </div>
+  {%endif %}  
+  {% if not user_detail.user_image  %}  
+  <div class="img_box" style="width: 70px; height: 70px; border-radius: 70%; overflow: hidden;">
+    <img src="{% static 'default_profile.png' %}" style="width: 100%;height: 100%; object-fit: cover;">
+    </div>
+ {%endif%}
+  
+  <p style="font-weight:bold; font-size:15px; text-align:left;">{{user_detail.user_nickname}} </p>
+ {% if not user_detail.user_introduce  %}  
+ <p style="font-size:13px;text-align:left;">{{user_detail.user_nickname}}님은 아직 소개글을 입력하지 않으셨습니다.</p> 
+ {%endif%}
+ {{user.user_introduce}}
+ {% if user_detail.id == user.id %}
+ <div onclick="location.href='{% url 'main:profile_update' user.id%}'" style="text-align:center; width:300px;border:1px solid;cursor:pointer; ">
+ 프로필 수정하기
+ {% endif %}
+ 
+</div>
+<hr style="margin:30px;">
 {% for post in posts %}
 <div style="cursor:pointer; margin:10px;" onclick="location.href='{% url 'post:post_detail' post.id%}'">
 <p>{{post.title}} :
@@ -11,12 +36,9 @@
   {{post.summary}}... <a style="text-decoration:line;" href="{% url 'post:post_detail' post.id %}"></a></p>
  {% endif %}
 {{post.score}}
-
-
-
 </div>
-
 {% endfor %}
+
 <div style="text-align:center;position:fixed; bottom:0; padding:30px;left:50%;transform: translateX( -50% );">
 {% if user_detail.id == user.id %}
 <a href="{% url 'main:profile_update' user.id%}">프로필 수정하기</a>
