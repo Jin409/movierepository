@@ -22,6 +22,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to="post/",null=True, blank=True)
     def summary(self):
         return self.body[:10]
+
+class Comment(models.Model):
+    
    
 
 
